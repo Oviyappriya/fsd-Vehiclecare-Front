@@ -1,0 +1,63 @@
+ [
+      {
+        "name": "Full Car Wash",
+        "sku": "CARWASH123",
+        "images": [
+          "https://m.media-amazon.com/images/I/41TyGzuqkSL._AC_UF350,350_QL80_.jpg",
+          "https://ecommercefastlane.com/wp-content/uploads/2024/02/washing-black-car.jpeg"
+        ],
+        "price": 49.99,
+        "description": "A complete car wash service that includes both interior and exterior cleaning.",
+        "category": "Vehicle Wash",
+        "sellerInfo": "Auto Clean Experts"
+      },
+      {
+        "name": "Oil Change",
+        "sku": "OILCHG456",
+        "images": [
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2WYVJwqdC6oFWH11iPAhTKbtH34-ez4aYDQ&s",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9-4KxIrRTFArhie9e7115PxGDm2vg9EWJKw&s"
+        ],
+        "price": 29.99,
+        "description": "Professional oil change service with high-quality engine oil and filter replacement.",
+        "category": "Maintenance",
+        "sellerInfo": "Quick Lube Center"
+      },
+      {
+        "name": "Tire Rotation",
+        "sku": "TIRERT789",
+        "images": [
+          "https://allmakescollision.ca/wp-content/uploads/2022/04/heveAdeZhFtnsUOwTf1tUf08fFeRMxMTRuX3IqlD.jpg",
+          "https://di-uploads-pod17.dealerinspire.com/hondaofsanangelo/uploads/2020/02/tire-rotation.jpg"
+        ],
+        "price": 19.99,
+        "description": "Ensure even tire wear and extend the life of your tires with our tire rotation service.",
+        "category": "Maintenance",
+        "sellerInfo": "Tire Experts"
+      },
+      {
+        "name": "Engine Tune-Up",
+        "sku": "TUNEUP321",
+        "images": [
+          "https://www.sansonesnissan.com/blogs/3599/wp-content/uploads/2023/08/Auto-mechanic-repairing-a-car.png",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSn3rY4DX7wnvDVMIieS4ag8gvAZBa0rxQGZA&s"
+        ],
+        "price": 99.99,
+        "description": "Comprehensive engine tune-up service to keep your vehicle running smoothly.",
+        "category": "Service",
+        "sellerInfo": "Engine Masters"
+      },
+      {
+        "name": "Detailing Service",
+        "sku": "DETAIL654",
+        "images": [
+          "https://5.imimg.com/data5/SELLER/Default/2023/11/364617555/BP/AX/ZE/66511937/car-detailing-services.jpg",
+          "https://149881442.v2.pressablecdn.com/wp-content/uploads/2022/05/11-Things-to-Consider-When-Choosing-a-Car-Detailing-Service.jpg"
+        ],
+        "price": 150.00,
+        "description": "Complete interior and exterior detailing to make your car look brand new.",
+        "category": "Vehicle Wash",
+        "sellerInfo": "Detailing Pros"
+      }
+    ]
+  
