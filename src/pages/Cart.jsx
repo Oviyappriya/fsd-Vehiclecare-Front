@@ -3,12 +3,13 @@
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import CartItem from '../components/CartItem';
+import '../App.css'
 
 const Cart = () => {
   const { services } = useSelector((state) => state.cart);
 
   return (
-    <div className="container">
+    <div className="container from-right-animation">
       <h1>Your Cart</h1>
       {services.map((item, index) => (
         <CartItem
@@ -22,6 +23,11 @@ const Cart = () => {
           sellerInfo={item.sellerInfo}
         />
       ))}
+      <div>
+        <h2>Total Price: ${services.reduce((acc, curr) => acc + curr.price, 0)}</h2>
+        <button className="btn btn-primary">Place Booking</button>
+      </div>
+
     </div>
   );
 };

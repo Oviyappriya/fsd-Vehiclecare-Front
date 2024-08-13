@@ -3,7 +3,7 @@ import services from "../json-Data/Service.json";
 import { Link } from "react-router-dom";
 const Service = ({ name, price, images }) => {
   return (
-    <div className="card m-2 d-inline-block" style={{ width: "18rem" }}>
+    <div className="card m-2 d-inline-block zoom-in-animation" style={{ width: "18rem" }}>
       <img src={images[0]} className="card-img-top pt-4" style={{height:"200",width:"300"}} alt={name} />
       <div className="card-body">
         <h5 className="card-title">{name}</h5>

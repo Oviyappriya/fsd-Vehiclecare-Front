@@ -1,6 +1,7 @@
 // src/app/store.js
 import { configureStore } from '@reduxjs/toolkit';
 import serviceReducer from './reducers/cart';
+import accountReducer from './reducers/account';
 const storeToLocalStorage = (props) => {
     return (exe) => {
       return (action) => {
@@ -26,6 +27,7 @@ const storeToLocalStorage = (props) => {
 const store = configureStore({
   reducer: {
     cart: serviceReducer,
+    account:accountReducer,
   },
   devTools:true,
   middleware: (defaultMiddlewareFn) => {
