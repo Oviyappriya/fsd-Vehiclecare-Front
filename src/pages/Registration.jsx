@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { handleAPIPost } from "../apis/apis";
 
 const Registration = () => {
   const [formData, setFormData] = useState({
@@ -7,7 +8,7 @@ const Registration = () => {
     phone: "",
     email: "",
     address: "",
-    userType: "customer",
+    userType: "",
     gstNo: "",
     password: "",
   });
@@ -22,7 +23,22 @@ const Registration = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData)
+   try{
+    const response = await handleAPIPost('/register',formData)
+    alert(response.msg||"")
+   }
+   catch(error){
+   alert(error.message)
+   }
+    setFormData({
+      name: "",
+      phone: "",
+      email: "",
+      address: "",
+      userType: "customer",
+      gstNo: "",
+      password: "",
+    })
   };
 
   return (

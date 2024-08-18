@@ -1,16 +1,28 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { handleAPIPost } from "../apis/apis";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({email,password});
+    try{
+      const response = await handleAPIPost('/login',{email,password})
+      alert(response.msg)
+      dispatch({type: "account_authenticate",userInfo :{}})
+      navigate("/")
+     }
+     catch(error){
+     alert(error.message)
+     }
   };
 
   return (

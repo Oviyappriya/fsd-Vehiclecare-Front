@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
-import services from "../json-Data/Service.json";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { handleAPIGet } from "../apis/apis";
 const Service = ({ name, price, images }) => {
   return (
     <div className="card m-2 d-inline-block zoom-in-animation" style={{ width: "18rem" }}>
@@ -20,6 +21,18 @@ Service.propTypes = {
 };
 
 const ServiceListing = () => {
+  const [services,setServices] = useState([]);
+  const loadProducts = async () => {
+ 
+      const products = await handleAPIGet("/services/available");
+
+      setServices(products);
+   
+  };
+
+  useEffect(() => {
+    loadProducts();
+  }, []);
   return (
     <div className="container mt-4">
       <h1>Services Page</h1>
