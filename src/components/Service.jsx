@@ -19,8 +19,8 @@ const Service = ({
   return (
     <div className="card mb-4">
       <div className="card-header">
-        <h2>{name}</h2>
-        <small className="text-muted">SKU: {sku}</small>
+        <h2>{name||""}</h2>
+        <small className="text-muted">SKU: {sku||""}</small>
       </div>
       <div className="card-body">
         <div
@@ -29,47 +29,23 @@ const Service = ({
           data-ride="carousel"
         >
           <div className="carousel-inner">
-            {images.map((image, index) => (
+            {(images || []).map((image, index) => (
               <div
                 key={index}
                 className={`carousel-item ${index === 0 ? "active" : ""}`}
               >
                 <img
                   src={image}
-                  className="d-block w-100 image"
+                  style={{ height: 300, width: 400, objectFit: "contain" }}
                   alt={`${name} ${index}`}
-                  style={{ objectFit: "contain", height:300,width:200}} 
-                 // Added objectFit and height
+                 
                 />
               </div>
             ))}
           </div>
-          <a
-            className="carousel-control-prev"
-            href={`#carousel-${sku}`}
-            role="button"
-            data-slide="prev"
-          >
-            <span
-              className="carousel-control-prev-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="sr-only">Previous</span>
-          </a>
-          <a
-            className="carousel-control-next"
-            href={`#carousel-${sku}`}
-            role="button"
-            data-slide="next"
-          >
-            <span
-              className="carousel-control-next-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="sr-only">Next</span>
-          </a>
+       
         </div>
-        <h3 className="mt-3">Price: ${price.toFixed(2)}</h3>
+        <h3 className="mt-3">Price: ${(price||0).toFixed(2)}</h3>
         <p>{description}</p>
 
         <p>
@@ -77,7 +53,7 @@ const Service = ({
         </p>
         <div className="seller-info mt-3">
           <h5>Seller Information</h5>
-          <p>{sellerInfo}</p>
+          <p>{sellerInfo?.name||""}</p>
         </div>
         <button className="btn btn-primary" onClick={handleAddtoBook}>Add your Booking</button>
       </div>

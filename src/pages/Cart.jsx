@@ -1,17 +1,42 @@
-
-
+import { useState } from 'react';
+import Loader from '../components/Loader';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import CartItem from '../components/CartItem';
 import '../App.css'
+import { handleAPIPost } from '../apis/apis';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
-  const { services } = useSelector((state) => state.cart);
+  const cart= useSelector((state) => state.cart);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const processOrder = async () => {
+    try {
+      setLoading(true);
+      const response = await handleAPIPost("/order/place-order", cart);
+
+      alert(response.msg);
+
+      navigate(`/orderSuccess?orderNo=${response.bookingNo}`);
+
+      dispatch({ type: "cart_clear" });
+    } catch (err) {
+      console.log(err);
+      alert("Something went wrong, Please try again later");
+    } finally {
+      setLoading(false);
+    }
+  };
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="container from-right-animation">
       <h1>Your Cart</h1>
-      {services.map((item, index) => (
+      {(cart.services||[]).map((item, index) => (
         <CartItem
           key={index}
           name={item.name}
@@ -24,8 +49,8 @@ const Cart = () => {
         />
       ))}
       <div>
-        <h2>Total Price: ${services.reduce((acc, curr) => acc + curr.price, 0)}</h2>
-        <button className="btn btn-primary">Place Booking</button>
+        <h2>Total Price: ${cart.services.reduce((acc, curr) => acc + curr.price, 0)}</h2>
+        <button onClick={processOrder}className="btn btn-primary">Place Booking</button>
       </div>
 
     </div>

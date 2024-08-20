@@ -15,6 +15,7 @@ const handleAPIGet = async(path) =>{
         return response.data;
     } catch (error) {
         console.error(error);
+        throw new Error(error.response.data.msg);
     }
 }
 

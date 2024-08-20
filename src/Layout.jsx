@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 const Cartlink = () => {
   const { services } = useSelector((state) => state.cart);
+  const {userInfo} = useSelector((state) => state.account);
+  if(userInfo.userType==="seller"){
+    return ""
+  }
   return (
     <Link className="btn btn-outline-light" to={"/cart"}>
       <i className="fa-solid fa-truck-monster"></i> {services.length}
