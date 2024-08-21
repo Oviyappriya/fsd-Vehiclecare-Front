@@ -5,21 +5,20 @@ import { useSelector,useDispatch } from 'react-redux';
 import CartItem from '../components/CartItem';
 import '../App.css'
 import { handleAPIPost } from '../apis/apis';
-import { useNavigate } from 'react-router-dom';
+
 
 const Cart = () => {
   const cart= useSelector((state) => state.cart);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const processOrder = async () => {
+  const processBooking = async () => {
     try {
       setLoading(true);
-      const response = await handleAPIPost("/order/place-order", cart);
+      const response = await handleAPIPost("/booking/place-booking", cart);
 
       alert(response.msg);
 
-      navigate(`/orderSuccess?orderNo=${response.bookingNo}`);
+     
 
       dispatch({ type: "cart_clear" });
     } catch (err) {
@@ -50,7 +49,7 @@ const Cart = () => {
       ))}
       <div>
         <h2>Total Price: ${cart.services.reduce((acc, curr) => acc + curr.price, 0)}</h2>
-        <button onClick={processOrder}className="btn btn-primary">Place Booking</button>
+        <button onClick={processBooking}className="btn btn-primary">Place Booking</button>
       </div>
 
     </div>

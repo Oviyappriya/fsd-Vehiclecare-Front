@@ -1,4 +1,4 @@
-import instance from "../api-instance";
+import instance from '../api-instance.js'
 const handleAPIPost = async(path,payload) =>{
     try {
         const response = await instance.post(path, payload);
@@ -8,6 +8,9 @@ const handleAPIPost = async(path,payload) =>{
         throw new Error(error.response.data.msg);
     }
 }
+
+
+  
 
 const handleAPIGet = async(path) =>{
     try {
