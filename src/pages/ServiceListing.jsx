@@ -61,7 +61,10 @@ const ServiceListing = () => {
     <div className="container mt-4">
       <h1>Services Page</h1>
       {userInfo.userType === "seller" && (
-        <button onClick={() => setFormState(true)} className="btn btn-primary mt-4">
+        <button
+          onClick={() => setFormState(true)}
+          className="btn btn-primary mt-4"
+        >
           + Add New Service
         </button>
       )}

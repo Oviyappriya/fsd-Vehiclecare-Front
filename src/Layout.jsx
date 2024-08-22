@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 const Cartlink = () => {
   const { totalQty } = useSelector((state) => state.cart);
-  const {userInfo} = useSelector((state) => state.account);
-  if(userInfo.userType==="seller"){
+  const { userInfo } = useSelector((state) => state.account);
+  if (!userInfo || userInfo.userType === "seller") {
     return "";
   }
   return (

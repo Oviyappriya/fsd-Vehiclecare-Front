@@ -37,23 +37,23 @@ const ProductForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-      const serviceData = {
-        ...service,
-        images: service.images.split(",").map((img) => img.trim()),
-      };
+    const serviceData = {
+      ...service,
+      images: service.images.split(",").map((img) => img.trim()),
+    };
 
-     const response=await handleAPIPost('/services', serviceData);
-     setService({
-        name: "",
-        sku: "",
-        price: "",
-        description: "",
-        images: "",
+    const response = await handleAPIPost("/services", serviceData);
+    console.log(response);
+    setService({
+      name: "",
+      sku: "",
+      price: "",
+      description: "",
+      images: "",
 
-        category: "Maintainance",
-      });
-    }
-  
+      category: "Maintainance",
+    });
+  };
 
   return (
     <div className="container mt-5">

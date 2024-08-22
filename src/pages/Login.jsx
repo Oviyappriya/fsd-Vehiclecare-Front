@@ -15,17 +15,19 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try{
-      const response = await handleAPIPost('/login',{email,password})
-      const {msg,userToken} = response; 
-      localStorage.setItem('authToken', userToken)
+    try {
+      const response = await handleAPIPost("/login", { email, password });
+      const { msg, userToken } = response;
+      localStorage.setItem("authToken", userToken);
       alert(msg);
-      dispatch({type: "account_authenticate",userInfo : jwtDecode(userToken)})
-      navigate("/")
-     }
-     catch(error){
-     alert(error.message)
-     }
+      dispatch({
+        type: "account_authenticate",
+        userInfo: jwtDecode(userToken),
+      });
+      navigate("/");
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (

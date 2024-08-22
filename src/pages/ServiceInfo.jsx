@@ -34,7 +34,7 @@ const ProductInfo = () => {
     <div className="m-4">
       <h1>Service Info</h1>
       <p>SKU: {serviceSku}</p>
-     
+
       <Service {...currentService} />
     </div>
   );

@@ -8,7 +8,7 @@ const Registration = () => {
     phone: "",
     email: "",
     address: "",
-    userType: "",
+    userType: "", // Default is an empty string, meaning "None"
     gstNo: "",
     password: "",
   });
@@ -23,22 +23,21 @@ const Registration = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-   try{
-    const response = await handleAPIPost('/register',formData)
-    alert(response.msg||"")
-   }
-   catch(error){
-   alert(error.message)
-   }
+    try {
+      const response = await handleAPIPost("/register", formData);
+      alert(response.msg || "");
+    } catch (error) {
+      alert(error.message);
+    }
     setFormData({
       name: "",
       phone: "",
       email: "",
       address: "",
-      userType: "customer",
+      userType: "", // Reset to "None"
       gstNo: "",
       password: "",
-    })
+    });
   };
 
   return (
@@ -103,8 +102,11 @@ const Registration = () => {
             onChange={handleChange}
             required
           >
+            <option value="" disabled>
+              None
+            </option>
             <option value="customer">Customer</option>
-            <option value="seller">Admin</option>
+            <option value="seller">Seller</option>
           </select>
         </div>
         {formData.userType === "seller" && (
