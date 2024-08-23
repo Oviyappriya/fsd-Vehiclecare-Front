@@ -1,8 +1,41 @@
-# React + Vite
+Netify : https://hilarious-lamington-d3d643.netlify.app
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+render : https://fsd-vehiclecare-back.onrender.com
 
-Currently, two official plugins are available:
+In the frontend, I have created an seperate components for the,
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+ -----> Login and registeration form.
+
+ -----> I have used react state to manage form inputs and validation messsage.
+
+ -----> I have used react router for handling client-side routing.
+
+ -----> I have used Redux API for state management across the application.
+
+ Implementation:
+ -----> Redux
+ 
+ -----> React Router
+ 
+ -----> Axios
+ 
+ -----> React
+ 
+ -----> @stripe/stripe-js
+
+ Functionality:
+ 1) User can view all the service details.
+  
+ 2) User can view all the services details in the service Info.
+ 
+ 3) User can Add their booking and they can see their booking in the cart.
+ 
+ 4) User can see their booking in their cart and place booking.
+ 
+ 5) User can place booking using both online payment (Stripe) and cash on delivery.
+
+
+
+
+
+
