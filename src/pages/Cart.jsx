@@ -1,25 +1,54 @@
-import { useState, useMemo } from "react";
-import Loader from "../components/Loader";
-import PropTypes from "prop-types";
-import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
+import { useSelector,useDispatch } from "react-redux";
 import CartItem from "../components/CartItem";
 import "../App.css";
 import { handleAPIPost } from "../apis/apis";
 import { useNavigate } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import instance from "../api-instance";
+import Loader from "../components/Loader";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
-  const navigate = useNavigate();
   const [payment, setPayment] = useState("cod");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handlePaymentChange = (e) => {
     setPayment(e.target.value);
   };
 
+  const makePayment = async () => {
+    try {
+      setLoading(true);
+      const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUB_KEY);
+
+      const response = await instance.post("/payment/get-payment-session", {
+        services: cart.services,
+      });
+
+      const { id } = response.data;
+
+      console.log("Session ID111:", id); 
+
+      const result = await stripe.redirectToCheckout({
+        sessionId: id,
+      });
+
+      if (result.error) {
+        console.error(result.error);
+        alert("Payment failed, please try again.");
+      }
+    } catch (err) {
+      console.error("Error creating payment session:", err);
+      alert("Payment failed, please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  
   const processBooking = async () => {
     try {
       setLoading(true);
@@ -34,33 +63,6 @@ const Cart = () => {
       setLoading(false);
     }
   };
-
-  const makePayment = async () => {
-    try {
-      setLoading(true);
-      const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUB_KEY);
-      const response = await instance.post("/payment/get-payment-session", {
-        services: cart.services,
-      });
-      const { id } = response.data;
-      const result = await stripe.redirectToCheckout({ sessionId: id });
-
-      if (result.error) {
-        console.error(result.error);
-        alert("Payment failed, please try again.");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Payment failed, please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const totalPrice = useMemo(
-    () => cart.services.reduce((acc, curr) => acc + curr.price, 0),
-    [cart.services]
-  );
 
   if (loading) {
     return <Loader />;
@@ -82,7 +84,10 @@ const Cart = () => {
         />
       ))}
       <div>
-        <h2>Total Price: ${totalPrice}</h2>
+        <h2>
+          Total Price: $
+          {cart.services.reduce((acc, curr) => acc + curr.price, 0)}
+        </h2>
         <div>
           <input
             type="radio"
@@ -120,21 +125,6 @@ const Cart = () => {
       </div>
     </div>
   );
-};
-
-Cart.propTypes = {
-  services: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      sku: PropTypes.string.isRequired,
-      images: PropTypes.arrayOf(PropTypes.string).isRequired,
-      price: PropTypes.number.isRequired,
-      description: PropTypes.string.isRequired,
-      category: PropTypes.oneOf(["Service", "Maintenance", "Vehicle Wash"])
-        .isRequired,
-      sellerInfo: PropTypes.string.isRequired,
-    })
-  ),
 };
 
 export default Cart;
