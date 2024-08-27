@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Loader from "../components/Loader";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
@@ -11,48 +11,56 @@ import instance from "../api-instance";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
-
   const navigate = useNavigate();
   const [payment, setPayment] = useState("cod");
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+
   const handlePaymentChange = (e) => {
     setPayment(e.target.value);
   };
+
   const processBooking = async () => {
     try {
       setLoading(true);
       const response = await handleAPIPost("/booking/place-booking", cart);
-
       alert(response.msg);
       navigate(`/bookingSuccess?bookingNo=${response.bookingNo}`);
-
       dispatch({ type: "cart_clear" });
     } catch (err) {
-      console.log(err);
+      console.error(err);
       alert("Something went wrong, Please try again later");
     } finally {
       setLoading(false);
     }
   };
-  console.log(processBooking);
+
   const makePayment = async () => {
-    const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUB_KEY);
+    try {
+      setLoading(true);
+      const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUB_KEY);
+      const response = await instance.post("/payment/get-payment-session", {
+        services: cart.services,
+      });
+      const { id } = response.data;
+      const result = await stripe.redirectToCheckout({ sessionId: id });
 
-    const response = await instance.post("/payment/get-payment-session", {
-      services: cart.services,
-    });
-
-    const { id } = response.data;
-
-    const result = await stripe.redirectToCheckout({
-      sessionId: id,
-    });
-
-    if (result.error) {
-      console.log(result.error);
+      if (result.error) {
+        console.error(result.error);
+        alert("Payment failed, please try again.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Payment failed, please try again.");
+    } finally {
+      setLoading(false);
     }
   };
+
+  const totalPrice = useMemo(
+    () => cart.services.reduce((acc, curr) => acc + curr.price, 0),
+    [cart.services]
+  );
 
   if (loading) {
     return <Loader />;
@@ -74,10 +82,7 @@ const Cart = () => {
         />
       ))}
       <div>
-        <h2>
-          Total Price: $
-          {cart.services.reduce((acc, curr) => acc + curr.price, 0)}
-        </h2>
+        <h2>Total Price: ${totalPrice}</h2>
         <div>
           <input
             type="radio"

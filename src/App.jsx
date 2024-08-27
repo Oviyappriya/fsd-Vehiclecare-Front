@@ -42,19 +42,18 @@ function App() {
               path="/profile"
               element={<ProtectedComponent component={<UserProfile />} />}
             />
+            <Route path="/bookingSuccess" element={<BookingSuccess />} />
             <Route
               path="/cart"
               element={<ProtectedComponent component={<Cart />} />}
             />
-            <Route
-              path="/bookingSuccess"
-              element={<ProtectedComponent component={<BookingSuccess />} />}
-            />
+
             <Route
               path="/:serviceSku"
               element={<ProtectedComponent component={<ServiceInfo />} />}
             />
           </Route>
+
           <Route path="/login" element={<Login />} />
           <Route path="/registration" element={<Registration />} />
         </Routes>
